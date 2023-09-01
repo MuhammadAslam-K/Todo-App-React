@@ -1,0 +1,28 @@
+.app {
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -10%);
+}
+
+.input-group {
+    max-width: 200px;
+}
+
+.taskTable {
+    display: flex;
+    justify-content: space-around;
+    /* width: 100%; */
+}
+
+.pending {
+    width: 200px;
+}
+
+.completed {
+    min-width: 180px;
+}
+
+.taskTabel {
+    display: flex;
+}
