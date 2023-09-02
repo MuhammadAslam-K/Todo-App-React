@@ -30,7 +30,7 @@ function Todo() {
 
             <div className='taskTable mt-5'>
                 <div className='pending me-5 border border-3'>
-                    <h5 class="form-label ms-5">Pending</h5>
+                    <h5 className='headline  mt-3'>Pending</h5>
                     {
                         todos.map((value) => {
                             if (!value.status) {
@@ -47,7 +47,7 @@ function Todo() {
                                                     return obj
                                                 }))
                                             }} type="checkbox" />
-                                        <p className='mt-3 ms-1'>{value.task}</p>
+                                        <p className='mt-3 ms-1 task'>{value.task}</p>
                                         <p
                                             onClick={(e) => {
                                                 setTodos(todos.filter(obj => obj.id !== value.id))
@@ -63,7 +63,7 @@ function Todo() {
 
 
                 <div className='completed me-5 border border-3'>
-                    <h5 class="form-label ms-5">Completed</h5>
+                    <h5 class="headline mt-3">Completed</h5>
                     {
                         todos.map((value) => {
                             if (value.status) {
@@ -80,7 +80,7 @@ function Todo() {
                                                     return obj
                                                 }))
                                             }} type="checkbox" />
-                                        <p className='mt-3 ms-1'>{value.task}</p>
+                                        <p className='mt-3 ms-1 task'>{value.task}</p>
 
                                         <p
                                             onClick={(e) => {
