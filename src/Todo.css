@@ -2,7 +2,7 @@
 
 
 * {
-    background: #92d39a;
+    background: #c9c8e0;
     font-family: 'Roboto', sans-serif;
 }
 
@@ -21,7 +21,7 @@
 .input-group {
     max-width: 250px;
     position: relative;
-    left: 35%;
+    left: 30%;
 }
 
 .taskTable {
@@ -33,9 +33,9 @@
     width: 200px;
 
     border-radius: 50px;
-    background: #92d39a;
-    box-shadow: 17px 17px 34px #72a578,
-        -17px -17px 34px #b2ffbc;
+    background: #c9c8e0;
+    box-shadow: 20px 20px 60px #abaabe,
+        -20px -20px 60px #e7e6ff;
 
     min-height: 50vh;
     min-width: 50%;
@@ -51,9 +51,9 @@
     min-width: 180px;
 
     border-radius: 50px;
-    background: #92d39a;
-    box-shadow: 17px 17px 34px #72a578,
-        -17px -17px 34px #b2ffbc;
+    background: #c9c8e0;
+    box-shadow: 20px 20px 60px #abaabe,
+        -20px -20px 60px #e7e6ff;
 
     min-height: 50vh;
     min-width: 50%;
@@ -63,8 +63,31 @@
 .task {
     font-weight: bold;
     font-size: large;
+    max-width: 200px;
+}
+
+
+.testimonial_text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tooltip-trigger {
+    cursor: pointer;
 }
 
 .taskTabel {
     display: flex;
+}
+
+.check-box,
+.delete {
+    cursor: pointer;
+}
+
+.error {
+    margin-left: 250px;
 }

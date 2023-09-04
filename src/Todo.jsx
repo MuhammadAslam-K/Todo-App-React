@@ -1,6 +1,4 @@
-/* eslint-disable react/jsx-no-undef */
-import React from 'react'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import "./Todo.css"
 
 function Todo() {
@@ -9,9 +7,15 @@ function Todo() {
         return storedTodos ? JSON.parse(storedTodos) : [];
     });
     const [todo, setTodo] = useState("")
+    const [error, setError] = useState(false)
+    const [valid, setValid] = useState(false)
+
+    const inputRef = useRef(null)
 
     useEffect(() => {
         localStorage.setItem('todos', JSON.stringify(todos));
+        inputRef.current.focus()
+
     }, [todos]);
 
     return (
@@ -20,13 +24,25 @@ function Todo() {
                 <input
                     value={todo}
                     onChange={(e) => { setTodo(e.target.value) }}
-                    type="text" className="form-control" />
+                    type="text" ref={inputRef} className="form-control" />
+
 
                 <button onClick={() => {
-                    setTodos([...todos, { id: Date.now(), task: todo, status: false }])
-                    setTodo("")
+                    if (todos.some(item => item.task === todo)) {
+                        setError(true);
+                    } else if (todo.length < 1) {
+                        setValid(true)
+                    }
+                    else {
+                        setError(false)
+                        setValid(false)
+                        setTodos([...todos, { id: Date.now(), task: todo, status: false }]);
+                        setTodo("");
+                    }
                 }} className='btn btn-success'>Add</button>
             </div>
+            {error && <p style={{ color: 'red' }} className='error'>The Task already Exists</p>}
+            {valid && <p style={{ color: 'red' }} className='error'>Please enter the value</p>}
 
             <div className='taskTable mt-5'>
                 <div className='pending me-5 border border-3'>
@@ -36,8 +52,8 @@ function Todo() {
                             if (!value.status) {
 
                                 return (
-                                    <div className='taskTabel ms-2'>
-                                        <input
+                                    <div className='taskTabel ms-3'>
+                                        <input className='check-box'
                                             onChange={(e) => {
                                                 setTodos(todos.filter(obj => {
 
@@ -47,12 +63,13 @@ function Todo() {
                                                     return obj
                                                 }))
                                             }} type="checkbox" />
-                                        <p className='mt-3 ms-1 task'>{value.task}</p>
+
+                                        <p className='mt-3 ms-1 task testimonial_text tooltip-trigger' data-bs-toggle="tooltip" data-bs-placement="top" title={value.task}>{value.task}</p>
                                         <p
                                             onClick={(e) => {
                                                 setTodos(todos.filter(obj => obj.id !== value.id))
                                             }}
-                                            className='mt-3 ms-4'><i class="fa-solid fa-xmark"></i></p>
+                                            className='mt-3 ms-4 delete'><i class="fa-solid fa-xmark"></i></p>
                                     </div>
                                 )
                             }
@@ -63,14 +80,14 @@ function Todo() {
 
 
                 <div className='completed me-5 border border-3'>
-                    <h5 class="headline mt-3">Completed</h5>
+                    <h5 className="headline mt-3">Completed</h5>
                     {
                         todos.map((value) => {
                             if (value.status) {
 
                                 return (
-                                    <div className='taskTabel ms-2'>
-                                        <input
+                                    <div className='taskTabel ms-3'>
+                                        <input className='check-box'
                                             onChange={(e) => {
                                                 setTodos(todos.filter(obj => {
 
@@ -80,13 +97,13 @@ function Todo() {
                                                     return obj
                                                 }))
                                             }} type="checkbox" />
-                                        <p className='mt-3 ms-1 task'>{value.task}</p>
+                                        <p className='mt-3 ms-1 task testimonial_text tooltip-trigger' data-bs-toggle="tooltip" data-bs-placement="right" title={value.task}>{value.task}</p>
 
                                         <p
                                             onClick={(e) => {
                                                 setTodos(todos.filter(obj => obj.id !== value.id))
                                             }}
-                                            className='mt-3 ms-4'><i class="fa-solid fa-xmark"></i></p>
+                                            className='mt-3 ms-4 delete'><i class="fa-solid fa-xmark"></i></p>
                                     </div>
                                 )
                             }
